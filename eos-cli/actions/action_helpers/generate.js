@@ -75,6 +75,8 @@ const server = (name, type) => {
     case 'none':
       Start.createStartFile(`index/index.html`, `${name}/`);
       break;
+    case 'lone':
+      Start.createDir(name, 'servers/');
     default:
       Start.createDir(`servers`, `${name}/`);
       Start.createDir(`express`, `${name}/servers/`);
@@ -82,9 +84,11 @@ const server = (name, type) => {
       path = 'backend/';
       Start.createStartFile(`../${path}app.js`, `${name}/servers/express/`);
   }
-  Start.createStartFile(`../${path}webpack.config.js`, `${name}/`);
-  Start.createStartFile(`../${path}package.json`, `${name}/`,
-    Start.installDependencies);
+  if (type !== 'lone'){
+    Start.createStartFile(`../${path}webpack.config.js`, `${name}/`);
+    Start.createStartFile(`../${path}package.json`, `${name}/`,
+      Start.installDependencies);
+  }
 };
 
 //APPEND

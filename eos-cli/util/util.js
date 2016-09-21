@@ -24,6 +24,21 @@ const npmRoot = (callback) => {
   });
 };
 
+const iterateName = (name, callback) => {
+  let command = `if [ -d ./servers/${name} ]; then echo 'Exists'; else echo ''; fi`;
+  let exists = exec(command).stdout.on('data', function(msg){
+    if (msg.length > 1){
+      let newName = name.split('-');
+      if (newName.length === 1) iterateName(`${name}-2`, callback);
+      else {
+        let num = parseInt(newName[1]) + 1;
+        newName = newName[0] + '-' + num.toString();
+        iterateName(newName, callback);
+      }
+    } else callback(name, 'lone');
+  });
+};
+
 // Export
 
 let Util = {
@@ -32,7 +47,8 @@ let Util = {
   snake: snake,
   kneelingCamelize: kneelingCamelize,
   Camelize: Camelize,
-  npmRoot: npmRoot
+  npmRoot: npmRoot,
+  iterateName: iterateName
 };
 
 module.exports = Util;

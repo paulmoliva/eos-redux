@@ -65,7 +65,7 @@ const generate = (action, name) => {
     Generate.setName(name, 'api_util');
   }
   if (action === 'server'){
-    Generate.server(name )
+    Util.iterateName(name, Generate.server);  
   }
 };
 
