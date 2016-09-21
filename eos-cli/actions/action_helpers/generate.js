@@ -76,10 +76,11 @@ const server = (name, type) => {
       Start.createStartFile(`index/index.html`, `${name}/`);
       break;
     default:
-      Start.createDir(`server`, `${name}/`);
-      Start.createStartFile(`index/index.ejs`, `${name}/server/`);
+      Start.createDir(`servers`, `${name}/`);
+      Start.createDir(`express`, `${name}/servers/`);
+      Start.createStartFile(`index/index.ejs`, `${name}/servers/express/`);
       path = 'backend/';
-      Start.createStartFile(`../${path}app.js`, `${name}/server/`);
+      Start.createStartFile(`../${path}app.js`, `${name}/servers/express/`);
   }
   Start.createStartFile(`../${path}webpack.config.js`, `${name}/`);
   Start.createStartFile(`../${path}package.json`, `${name}/`,
